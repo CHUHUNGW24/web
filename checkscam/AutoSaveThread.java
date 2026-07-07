@@ -1,5 +1,4 @@
 package checkscam;
-
 public class AutoSaveThread extends Thread {
     @Override
     public void run() {
