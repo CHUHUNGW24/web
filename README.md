@@ -12,7 +12,6 @@
 * **Gửi báo cáo tố cáo mới:** Người dùng có thể đóng góp dữ liệu bằng cách gửi thông tin tố cáo. Hệ thống phân loại thông minh giữa đối tượng thông thường (SĐT/STK) và đối tượng ngân hàng (yêu cầu thêm Tên ngân hàng, Chủ tài khoản).
 * **Hiển thị danh sách đen:** Liệt kê toàn bộ danh sách các đối tượng lừa đảo đang được lưu trữ trên hệ thống kèm bằng chứng cụ thể.
 * **Tự động sao lưu dữ liệu ngầm (Auto-Save):** Tích hợp một luồng ngầm (Daemon Thread) tự động chạy định kỳ mỗi 120 giây để thông báo bảo vệ và đồng bộ dữ liệu, tránh mất mát thông tin.
-
 ---
 
 ## Công Nghệ Sử Dụng
@@ -24,7 +23,7 @@
   * `service`: Xử lý logic nghiệp vụ, thuật toán tra cứu và kiểm tra lỗi.
   * `Main`: Giao diện dòng lệnh điều hướng menu tương tác.
 * **Cơ sở dữ liệu:** Lưu trữ dạng File I/O phẳng (`scammers.txt`) tối ưu dung lượng.
-* **Kỹ thuật nâng cao:** Đa luồng (Multithreading), Biểu thức chính quy (Regex), Xử lý ngoại lệ tùy chỉnh (Custom Exception).
+* **Kỹ thuật nâng cao:** Đa luồng (Multithreading), Biểu thức chính quy (Regex), ghi đè phương thức (Override), Xử lý ngoại lệ tùy chỉnh (Custom Exception).
 
 ---
 
