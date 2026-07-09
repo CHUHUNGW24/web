@@ -17,9 +17,6 @@ public class Repository {
         scammerList.add(newScammer);
         saveDataToFile(newScammer);
     }
-    /**
-     * 📥 1. HÀM ĐỌC FILE (Đã cấu trúc lại để tương thích ngược dữ liệu cũ, chống sập)
-     */
     private void loadDataFromFile() {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
@@ -59,9 +56,6 @@ public class Repository {
             System.out.println("❌ Lỗi khi đọc dữ liệu từ file: " + e.getMessage());
         }
     }
-    /**
-     * 📤 2. HÀM GHI FILE (Lưu chuẩn định dạng mới phân loại rõ ràng)
-     */
     private void saveDataToFile(Scammer scammer) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             String dataLine;
@@ -79,9 +73,6 @@ public class Repository {
             System.out.println("❌ Lỗi khi ghi dữ liệu vào file: " + e.getMessage());
         }
     }
-    /**
-     * 🛠️ 3. HÀM KHỞI TẠO DỮ LIỆU MẪU BAN ĐẦU
-     */
     private void initSampleData() {
         save(new BankScammer(1L, "190333444555", "Lừa đảo việc làm online", "Yêu cầu nạp tiền làm nhiệm vụ", "Techcombank", "Nguyen Van Gian"));
         save(new Scammer(2L, "9876543210", "Giả danh Công an / Viện kiểm sát", "Gọi điện hù dọa dính án ma túy, yêu cầu chuyển tiền"));
