@@ -13,13 +13,9 @@ public class Scammer {
         this.evidence = evidence;
     }
     public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
     public String getTarget() { return target; }
-    public void setTarget(String target) { this.target = target; }
     public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
     public String getEvidence() { return evidence; }
-    public void setEvidence(String evidence) { this.evidence = evidence; }
     @Override
     public String toString() {
         return "[STT]: #" + id +

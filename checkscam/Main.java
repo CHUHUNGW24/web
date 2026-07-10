@@ -22,7 +22,7 @@ public class Main {
         System.out.println("=========================================");
         while (true) {
             System.out.println("\n--- MENU CHỨC NĂNG ---");
-            System.out.println("1. Tra cứu Số tài khoản / Số điện thoại");
+            System.out.println("1. Tra cứu / Tìm kiếm kẻ lừa đảo (Nâng cấp)");
             System.out.println("2. Gửi báo cáo tố cáo kẻ lừa đảo mới");
             System.out.println("3. Xem danh sách tất cả kẻ lừa đảo");
             System.out.println("4. Thoát chương trình");
@@ -35,15 +35,66 @@ public class Main {
             int choice = scanner.nextInt();
             scanner.nextLine();
             if (choice == 1) {
-                System.out.print("➡️ Nhập Số tài khoản hoặc Số điện thoại cần kiểm tra: ");
-                String input = scanner.nextLine().trim();
-                try {
-                    Scammer result = scamService.checkScam(input);
-                    System.out.println("\n-----------------------------------------");
-                    System.out.println(result);
-                    System.out.println("-----------------------------------------");
-                } catch (IllegalArgumentException | ScammerNotFoundException e) {
-                    System.out.println(e.getMessage());
+                // MENU CON CHO TÍNH NĂNG TÌM KIẾM NÂNG CAO
+                System.out.println("\n--- CHẾ ĐỘ TÌM KIẾM NÂNG CAO ---");
+                System.out.println("1. Tra cứu chính xác (Yêu cầu đầy đủ SĐT/STK)");
+                System.out.println("2. Tìm kiếm gần đúng (Theo 3-4 số cuối)");
+                System.out.println("3. Tìm kiếm theo loại hành vi (Ví dụ: Shopee, Công an...)");
+                System.out.print("Mời lựa chọn chế độ (1-3): ");
+                if (!scanner.hasNextInt()) {
+                    System.out.println("❌ Lựa chọn không hợp lệ!");
+                    scanner.nextLine();
+                    continue;
+                }
+                int searchMode = scanner.nextInt();
+                scanner.nextLine();
+                if (searchMode == 1) {
+                    // CHẾ ĐỘ 1: Tìm kiếm chính xác
+                    System.out.print("➡️ Nhập chính xác Số tài khoản hoặc Số điện thoại: ");
+                    String input = scanner.nextLine().trim();
+                    try {
+                        Scammer result = scamService.checkScam(input);
+                        System.out.println("\n-----------------------------------------");
+                        System.out.println(result);
+                        System.out.println("-----------------------------------------");
+                    } catch (IllegalArgumentException | ScammerNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                else if (searchMode == 2) {
+                    // CHẾ ĐỘ 2: Tìm gần đúng theo đuôi số
+                    System.out.print("➡️ Nhập các số cuối cần tìm kiếm (ví dụ '210' hoặc '6789'): ");
+                    String suffix = scanner.nextLine().trim();
+                    List<Scammer> results = scamService.searchByTrailingNumbers(suffix);
+                    System.out.println("\n🔍 KẾT QUẢ TÌM KIẾM ĐUÔI SỐ LÀ: '" + suffix + "'");
+                    if (results.isEmpty()) {
+                        System.out.println("🌱 Không tìm thấy đối tượng nghi ngờ nào trùng đuôi số này.");
+                    } else {
+                        System.out.println("🚨 PHÁT HIỆN " + results.size() + " ĐỐI TƯỢNG TÌNH NGHI:");
+                        for (Scammer s : results) {
+                            System.out.println(s);
+                            System.out.println("-----------------------------------------");
+                        }
+                    }
+                }
+                else if (searchMode == 3) {
+                    // CHẾ ĐỘ 3: Tìm theo từ khóa hành vi
+                    System.out.print("➡️ Nhập từ khóa hành vi cần lọc (Ví dụ: 'Shopee', 'trúng thưởng'): ");
+                    String keyword = scanner.nextLine().trim();
+                    List<Scammer> results = scamService.searchByTypeKeyword(keyword);
+                    System.out.println("\n🔍 DANH SÁCH LỌC THEO TỪ KHÓA HÀNH VI: '" + keyword + "'");
+                    if (results.isEmpty()) {
+                        System.out.println("🌱 Không có hành vi lừa đảo nào trùng với từ khóa bạn tìm.");
+                    } else {
+                        System.out.println("🚨 TÌM THẤY " + results.size() + " HỒ SƠ LIÊN QUAN:");
+                        for (Scammer s : results) {
+                            System.out.println(s);
+                            System.out.println("-----------------------------------------");
+                        }
+                    }
+                }
+                else {
+                    System.out.println("❌ Lựa chọn chế độ không hợp lệ!");
                 }
             }
             else if (choice == 2) {
@@ -80,7 +131,7 @@ public class Main {
             }
             else if (choice == 3) {
                 System.out.println("\n--- DANH SÁCH ĐỐI TƯỢNG LỪA ĐẢO TRÊN HỆ THỐNG ---");
-                List<Scammer> list = scamService.getAllScammers(); //
+                List<Scammer> list = scamService.getAllScammers();
                 if (list.isEmpty()) {
                     System.out.println("🌱 Hệ thống hiện tại trống, chưa có dữ liệu báo cáo nào.");
                 } else {

@@ -1,4 +1,5 @@
 package checkscam.service;
+import java.util.ArrayList;
 import java.util.List;
 import checkscam.entity.Scammer;
 import checkscam.exception.ScammerNotFoundException;
@@ -15,6 +16,35 @@ public class ScamService {
             }
         }
         throw new ScammerNotFoundException("✅ AN TÂM: Số này hiện chưa có lịch sử lừa đảo báo cáo trên hệ thống.");
+    }
+    // 2. MỚI: Tính năng tìm kiếm gần đúng theo 3-4 số cuối
+    public List<Scammer> searchByTrailingNumbers(String suffix) {
+        List<Scammer> resultList = new ArrayList<>();
+        if (suffix == null || suffix.trim().isEmpty()) {
+            return resultList;
+        }
+        for (Scammer s : repository.findAll()) {
+            // Kiểm tra xem số tài khoản/SĐT có kết thúc bằng chuỗi nhập vào hay không
+            if (s.getTarget().endsWith(suffix.trim())) {
+                resultList.add(s);
+            }
+        }
+        return resultList;
+    }
+    // 3. MỚI: Tính năng tìm kiếm theo từ khóa hành vi lừa đảo (Không phân biệt hoa thường)
+    public List<Scammer> searchByTypeKeyword(String keyword) {
+        List<Scammer> resultList = new ArrayList<>();
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return resultList;
+        }
+        String lowerKeyword = keyword.trim().toLowerCase();
+        for (Scammer s : repository.findAll()) {
+            // Kiểm tra xem trường 'type' (hành vi) có chứa từ khóa hay không
+            if (s.getType().toLowerCase().contains(lowerKeyword)) {
+                resultList.add(s);
+            }
+        }
+        return resultList;
     }
     public void addScammer(Scammer newScammer) {
         repository.save(newScammer);
