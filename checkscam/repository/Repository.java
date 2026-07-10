@@ -59,8 +59,7 @@ public class Repository {
     private void saveDataToFile(Scammer scammer) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             String dataLine;
-            if (scammer instanceof BankScammer) {
-                BankScammer bs = (BankScammer) scammer;
+            if (scammer instanceof BankScammer bs) {
                 dataLine = "BANK|" + bs.getId() + "|" + bs.getTarget() + "|" + bs.getType() + "|" +
                         bs.getEvidence() + "|" + bs.getBankName() + "|" + bs.getAccountHolder();
             } else {

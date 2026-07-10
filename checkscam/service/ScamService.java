@@ -5,7 +5,7 @@ import checkscam.entity.Scammer;
 import checkscam.exception.ScammerNotFoundException;
 import checkscam.repository.Repository;
 public class ScamService {
-    private Repository repository = new Repository();
+    private final Repository repository = new Repository();
     public Scammer checkScam(String input) throws ScammerNotFoundException, IllegalArgumentException {
         if (input == null || !input.matches("\\d{9,15}")) {
             throw new IllegalArgumentException("❌ Lỗi định dạng: Thông tin nhập vào phải là SỐ và có độ dài từ 9 - 15 ký tự!");

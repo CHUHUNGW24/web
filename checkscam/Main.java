@@ -13,9 +13,11 @@ public class Main {
         saveThread.setDaemon(true);
         saveThread.start();
         try {
-            System.setOut(new java.io.PrintStream(System.out, true, "UTF-8"));
-        } catch (java.io.UnsupportedEncodingException e) {
-            e.printStackTrace();
+            // Sử dụng StandardCharsets.UTF_8 thay vì chuỗi "UTF-8" viết tay
+            System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            // Thay thế printStackTrace() bằng System.err để ghi nhận lỗi robust hơn
+            System.err.println("❌ Lỗi cấu trúc hiển thị ngôn ngữ: " + e.getMessage());
         }
         System.out.println("=========================================");
         System.out.println("   HỆ THỐNG QUẢN LÝ & TRA CỨU WEB CHECK SCAM   ");
